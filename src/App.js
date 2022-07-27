@@ -1,7 +1,6 @@
 import React from 'react';
-import logo from './logo.svg';
+import logo from "./logo.svg";
 import "@aws-amplify/ui-react/styles.css";
-import './App.css';
 import {
   withAuthenticator,
   Button,
@@ -22,6 +21,5 @@ function App({ signOut }) {
     </View>
   );
 }
-
 
 export default withAuthenticator(App);
