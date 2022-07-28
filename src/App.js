@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Amplify, { Auth } from 'aws-amplify'
 import '@aws-amplify/ui-react/styles.css';
 import awsExports from './aws-exports';
 import { Amplify } from 'aws-amplify';
