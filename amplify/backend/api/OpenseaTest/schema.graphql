@@ -1,7 +1,5 @@
-type Tokens @model @auth(rules: [{allow: public}]) {
+type Note @model {
   id: ID!
-  contract: String
-  token: String
-  results: AWSJSON
-  date: AWSDate
+  name: String!
+  description: String
 }
