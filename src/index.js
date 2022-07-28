@@ -4,7 +4,15 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import "@aws-amplify/ui-react/styles.css";
+//import Amplify from 'aws-amplify';
+//import config from './aws-exports';
+//Amplify.configure(config);
+import { Amplify, Auth } from 'aws-amplify';
+import awsconfig from './aws-exports';
+Amplify.configure(awsconfig);
 
+//GraphQL endpoint: https://lpkk66ai3feo5jjxlgskvdvfqq.appsync-api.ap-southeast-2.amazonaws.com/graphql
+//GraphQL API KEY: da2-j5ciycb76rgmfp3pbkr55vkgsa
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
