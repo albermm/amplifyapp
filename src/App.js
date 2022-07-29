@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import awsExports from './aws-exports';
 import { Amplify } from 'aws-amplify';
 import './App.css';
-import { API } from 'aws-amplify';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import { AmplifySignOut } from '@aws-amplify/ui-react';
 import { listNotes } from './graphql/queries';
@@ -23,6 +22,7 @@ function App( { user }) {
 
   async function fetchNotes() {
     const apiData = await API.graphql({ query: listNotes });
+    const notesFromAPI = apiData.data.listNotes.items;
     setNotes(apiData.data.listNotes.items);
     await Promise.all(notesFromAPI.map(async note => {
       if (note.image) {
@@ -39,9 +39,9 @@ function App( { user }) {
     if (!formData.name || !formData.description) return;
     await API.graphql({ query: createNoteMutation, variables: { input: formData } });
     if (formData.image) {
-    const image = await Storage.get(formData.image);
-    formData.image = image;
-  }
+      const image = await Storage.get(formData.image);
+      formData.image = image;
+    }
     setNotes([ ...notes, formData ]);
     setFormData(initialFormState);
   }
@@ -86,10 +86,15 @@ function App( { user }) {
               <h2>{note.name}</h2>
               <p>{note.description}</p>
               <button onClick={() => deleteNote(note)}>Delete note</button>
+              {
+                // eslint-disable-next-line
+               note.image && <img src={note.image} style={{width: 400}} />
+              }
             </div>
             
           ))
         }
+        
       </div>
       <AmplifySignOut />
     </div>
