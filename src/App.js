@@ -1,11 +1,10 @@
-//import React, { useState, useEffect } from 'react';
-import React from 'react';
-import '@aws-amplify/ui-react/styles.css';
+import React, { useState, useEffect } from 'react';
 import awsExports from './aws-exports';
 import { Amplify } from 'aws-amplify';
 import './App.css';
 import { API } from 'aws-amplify';
-import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
+import { withAuthenticator } from '@aws-amplify/ui-react';
+import { AmplifySignOut } from '@aws-amplify/ui-react';
 import { listNotes } from './graphql/queries';
 import { createNote as createNoteMutation, deleteNote as deleteNoteMutation } from './graphql/mutations';
 
@@ -13,7 +12,8 @@ Amplify.configure(awsExports);
 
 const initialFormState = { name: '', description: '' }
 
-function App({ signOut, user }) {
+
+function App( { user }) {
   const [notes, setNotes] = useState([]);
   const [formData, setFormData] = useState(initialFormState);
   useEffect(() => {
@@ -39,31 +39,32 @@ function App({ signOut, user }) {
   }
   
   return (
-    <><>
-      <h1>Hello {user.username}</h1>
-      <button onClick={signOut}>Sign out</button>
-    </><div className="App">
-        <h1>My Notes App</h1>
-        <input
-          onChange={e => setFormData({ ...formData, 'name': e.target.value })}
-          placeholder="Note name"
-          value={formData.name} />
-        <input
-          onChange={e => setFormData({ ...formData, 'description': e.target.value })}
-          placeholder="Note description"
-          value={formData.description} />
-        <button onClick={createNote}>Create Note</button>
-        <div style={{ marginBottom: 30 }}>
-          {notes.map(note => (
+    <div className="App">
+      <h1>My Notes App</h1>
+      <input
+        onChange={e => setFormData({ ...formData, 'name': e.target.value})}
+        placeholder="Note name"
+        value={formData.name}
+      />
+      <input
+        onChange={e => setFormData({ ...formData, 'description': e.target.value})}
+        placeholder="Note description"
+        value={formData.description}
+      />
+      <button onClick={createNote}>Create Note</button>
+      <div style={{marginBottom: 30}}>
+        {
+          notes.map(note => (
             <div key={note.id || note.name}>
               <h2>{note.name}</h2>
               <p>{note.description}</p>
               <button onClick={() => deleteNote(note)}>Delete note</button>
             </div>
-          ))}
-        </div>
-        <AmplifySignOut />
-      </div></>
+          ))
+        }
+      </div>
+      <AmplifySignOut />
+    </div>
   );
 }
 
