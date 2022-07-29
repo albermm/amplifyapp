@@ -1,17 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import Amplify, { Auth } from 'aws-amplify'
+//import React, { useState, useEffect } from 'react';
+import React from 'react';
 import '@aws-amplify/ui-react/styles.css';
 import awsExports from './aws-exports';
 import { Amplify } from 'aws-amplify';
-//import {
-  //withAuthenticator,
-  //Button,
-  //Heading,
-  //Image,
-  //View,
-  //Card,
-//} from "@aws-amplify/ui-react";
-
 import './App.css';
 import { API } from 'aws-amplify';
 import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
